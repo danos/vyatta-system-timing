@@ -1,0 +1,167 @@
+module vyatta-system-timing-v1 {
+	namespace "urn:vyatta.com:mgmt:vyatta-system-timing:1";
+	prefix vyatta-system-timing-v1;
+
+	import vyatta-system-v1 {
+		prefix system;
+	}
+	import configd-v1 {
+		prefix configd;
+	}
+	organization "AT&T Inc.";
+	contact
+		"AT&T
+		 Postal: 208 S. Akard Street
+				 Dallas, TX 75202
+		 Web: www.att.com";
+
+	description
+		"Copyright (c) 2020, AT&T Intellectual Property.
+		All rights reserved.
+
+		Redistribution and use in source and binary forms, with or without
+		modification, are permitted provided that the following conditions
+		are met:
+
+		  1. Redistributions of source code must retain the above copyright
+		     notice, this list of conditions and the following disclaimer.
+		  2. Redistributions in binary form must reproduce the above
+		     copyright notice, this list of conditions and the following
+		     disclaimer in the documentation and/or other materials provided
+		     with the distribution.
+		  3. Neither the name of the copyright holder nor the names of its
+		     contributors may be used to endorse or promote products derived
+		     from this software without specific prior written permission.
+
+		THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+		'AS IS' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+		LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+		FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+		COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+		INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+		BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+		LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+		CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+		LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+		ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+		POSSIBILITY OF SUCH DAMAGE.
+
+		SPDX-License-Identifier: BSD-3-Clause
+
+		System Timing configuration";
+
+	revision 2020-11-19 {
+		description "Initial revision of version 1.";
+	}
+
+	typedef one-pps-source {
+		description "The source of input 1PPS";
+		type enumeration {
+			enum "GPS-1PPS" {
+				configd:help "1PPS from GPS";
+			}
+			enum "PTP-1PPS" {
+				configd:help "1PPS from PTP";
+			}
+			enum "SMA-1PPS" {
+				configd:help "1PPS from SMA interface";
+			}
+			enum "ToD-1PPS" {
+				configd:help "1PPS from TOD RJ45 interface";
+			}
+		}
+	}
+	typedef frequency-source {
+		description "The source of input frequency";
+		type enumeration {
+			enum "GPS" {
+				configd:help "frequency from GPS";
+			}
+			enum "SYNCE" {
+				configd:help "frequency from SyncE";
+			}
+			enum "PTP" {
+				configd:help "frequency from PTP";
+			}
+			enum "SMA" {
+				configd:help "frequency from SMA interface";
+			}
+			enum "BITS" {
+				configd:help "frequency from BITS interface";
+			}
+		}
+	}
+	typedef type-weighted-priority {
+		description "weighted priority";
+		type uint16 {
+			range 1..100;
+		}
+	}
+	grouping source-status {
+		leaf source {
+			description "current input source";
+			type string;
+		}
+		leaf operating-status {
+			description "operating status of current input source";
+			type string;
+		}
+		leaf-list priority {
+			description "priority list of the sources";
+			type string;
+		}
+	}
+
+	grouping system-timing {
+		container timing {
+			configd:help "system timing configuration";
+			container timing-source {
+				configd:help "timing source configuration";
+				list one-pps {
+					description "1PPS source configuration";
+					configd:help "1PPS source configuration";
+					key src-name;
+					leaf weighted-priority {
+						description "weighted priority";
+						configd:help "weighted priority";
+						type type-weighted-priority;
+					}
+					leaf src-name {
+						description "source of input 1PPS";
+						configd:help "source of input 1PPS";
+						type one-pps-source;
+					}
+				}
+				list frequency {
+					description "frequency source configuration";
+					configd:help "frequency source configuration";
+					key src-name;
+					leaf weighted-priority {
+						description "weighted priority";
+						configd:help "weighted priority";
+						type type-weighted-priority;
+					}
+					leaf src-name {
+						description "source of input frequency";
+						configd:help "source of input frequency";
+						type frequency-source;
+					}
+				}
+				container frequency-status {
+					description "status frequency source";
+					config false;
+					uses source-status;
+				}
+				container one-pps-status {
+					description "status 1PPS source";
+					config false;
+					uses source-status;
+				}
+			}
+		}
+	}
+	
+	augment /system:system {
+		uses system-timing;
+	}
+}

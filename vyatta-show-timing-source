@@ -1,0 +1,96 @@
+#!/usr/bin/env python3
+#
+# Copyright (c) 2020 AT&T Intellectual Property.
+# All Rights Reserved
+#
+
+import sys, json
+from vyatta import configd
+import argparse
+
+
+def show_one_pps_status(state):
+    """
+    state:
+    {
+        "frequency": [{"src-name": "GPS", "weighted-priority": 25}],
+        "frequency-status": {
+            "operating-status": "Locked",
+            "priority": [
+                "src-name:BITS, weighted_priority:10",
+                "src-name:GPS, weighted_priority:25",
+                "src-name:PTP, weighted_priority:30",
+                "src-name:SMA, weighted_priority:20",
+                "src-name:SYNCE, weighted_priority:40",
+            ],
+            "source": "SYNCE",
+        },
+        "one-pps-status": {
+            "operating-status": "Locked",
+            "priority": [
+                "src-name:GPS-1PPS, weighted_priority:50",
+                "src-name:PTP-1PPS, weighted_priority:40",
+                "src-name:SMA-1PPS, weighted_priority:30",
+                "src-name:ToD-1PPS, weighted_priority:20",
+            ],
+            "source": "PTP-1PPS",
+        },
+    }
+    """
+    dumpstr = "{}"
+    try:
+        dumpstr = json.dumps(state["one-pps-status"], indent=4)
+    except:
+        pass
+    print(dumpstr)
+
+
+def show_frequency_status(state):
+    dumpstr = "{}"
+    try:
+        dumpstr = json.dumps(state["frequency-status"], indent=4)
+    except:
+        pass
+    print(dumpstr)
+
+
+def get_state_timing_source():
+    try:
+        c = configd.Client()
+    except:
+        print("can't connect to configd\n", file=sys.stderr)
+        sys.exit(1)
+
+    try:
+        d = c.tree_get_full_dict(
+            "system timing timing-source", configd.Client.RUNNING, "json"
+        )
+    except:
+        print(msg="can't retrieve timing-source information\n", file=sys.stderr)
+        sys.exit(1)
+    # print(f"received from configd:{d}")
+    if not bool(d):
+        d = {"timing-source": {"one-pps-status": {}, "frequency-status": {}}}
+    return d["timing-source"]
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="System timing timing-source show")
+    parser.add_argument(
+        "-f",
+        "--frequency",
+        help="Show timing-source frequency status",
+        action="store_true",
+    )
+    parser.add_argument(
+        "-p", "--one-pps", help="Show timing-source 1PPS status", action="store_true"
+    )
+
+    args = parser.parse_args()
+    if args.one_pps:
+        state = get_state_timing_source()
+        show_one_pps_status(state)
+
+    elif args.frequency:
+        state = get_state_timing_source()
+        show_frequency_status(state)
