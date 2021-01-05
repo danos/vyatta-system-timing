@@ -16,11 +16,11 @@ module vyatta-op-show-system-timing-v1 {
 	contact
 		"AT&T
 		 Postal: 208 S. Akard Street
-				 Dallas, TX 25202
+				 Dallas, TX 75202
 		 Web: www.att.com";
 
 	description
-		"Copyright (c) 2020, AT&T Intellectual Property.
+		"Copyright (c) 2021, AT&T Intellectual Property.
 		 All rights reserved.
 
 		Redistribution and use in source and binary forms, with or without
@@ -52,9 +52,9 @@ module vyatta-op-show-system-timing-v1 {
 
 		SPDX-License-Identifier: BSD-3-Clause
 
-		Defines the top level 'image' level under 'show system' for operational CLI";
+		Defines the top level 'timing' level under 'show system' for operational CLI";
 
-	revision 2020-11-19 {
+	revision 2021-01-04 {
 		description "Initial revision of version 1.";
 	}
 

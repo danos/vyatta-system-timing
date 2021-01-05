@@ -16,7 +16,7 @@ module vyatta-system-timing-v1 {
 		 Web: www.att.com";
 
 	description
-		"Copyright (c) 2020, AT&T Intellectual Property.
+		"Copyright (c) 2021, AT&T Intellectual Property.
 		All rights reserved.
 
 		Redistribution and use in source and binary forms, with or without
@@ -50,7 +50,7 @@ module vyatta-system-timing-v1 {
 
 		System Timing configuration";
 
-	revision 2020-11-19 {
+	revision 2021-01-04 {
 		description "Initial revision of version 1.";
 	}
 
@@ -58,15 +58,19 @@ module vyatta-system-timing-v1 {
 		description "The source of input 1PPS";
 		type enumeration {
 			enum "GPS-1PPS" {
+				description  "1PPS from GPS";
 				configd:help "1PPS from GPS";
 			}
 			enum "PTP-1PPS" {
+				description "1PPS from PTP";
 				configd:help "1PPS from PTP";
 			}
 			enum "SMA-1PPS" {
+				description "1PPS from SMA interface";
 				configd:help "1PPS from SMA interface";
 			}
 			enum "ToD-1PPS" {
+				description "1PPS from TOD RJ45 interface";
 				configd:help "1PPS from TOD RJ45 interface";
 			}
 		}
@@ -75,18 +79,23 @@ module vyatta-system-timing-v1 {
 		description "The source of input frequency";
 		type enumeration {
 			enum "GPS" {
+				description "frequency from GPS";
 				configd:help "frequency from GPS";
 			}
 			enum "SYNCE" {
+				description "frequency from SyncE";
 				configd:help "frequency from SyncE";
 			}
 			enum "PTP" {
+				description "frequency from PTP";
 				configd:help "frequency from PTP";
 			}
 			enum "SMA" {
+				description "frequency from SMA interface";
 				configd:help "frequency from SMA interface";
 			}
 			enum "BITS" {
+				description "frequency from BITS interface";
 				configd:help "frequency from BITS interface";
 			}
 		}
@@ -114,8 +123,10 @@ module vyatta-system-timing-v1 {
 
 	grouping system-timing {
 		container timing {
+			description "system timing configuration";
 			configd:help "system timing configuration";
 			container timing-source {
+				description "timing source configuration";
 				configd:help "timing source configuration";
 				list one-pps {
 					description "1PPS source configuration";

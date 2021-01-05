@@ -1,9 +1,9 @@
-# Copyright (c) 2019-2020, AT&T Intellectual Property.
+# Copyright (c) 2021, AT&T Intellectual Property.
 # All rights reserved.
 #
 
 """
-Unit-tests for the shaper.py module.
+Unit-tests for the vyatta_system_timing.py module.
 """
 from os.path import dirname, realpath, sep, pardir
 import sys, os

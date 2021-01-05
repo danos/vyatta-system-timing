@@ -1,11 +1,12 @@
 Source: vyatta-system-timing
 Section: contrib/net
-Priority: extra
-Maintainer: Vyatta Package Maintainers <maintainers@vyatta.com>
+Priority: optional
+Maintainer: Vyatta Package Maintainers <DL-vyatta-help@att.com>
 Build-Depends: debhelper (>= 9),
- dh-python,
- dh-vci,
- dh-yang,
+    dh-python,
+    dh-vci,
+    dh-yang,
+    python3
 Standards-Version: 3.9.8
 
 Package: vyatta-system-timing
@@ -14,13 +15,14 @@ Depends:
     python3,
     python3-vci,
     python3-ufispace-bsp-utils (>> 3.0.4-0vyatta3),
+    ${python3:Depends},
     ${shlibs:Depends}
 Description: vci component for vyatta system timing configuration
+ vci component for vyatta system timing config set/get/delete and state get.
 
 Package: vyatta-system-timing-v1-yang
 Architecture: all
 Depends: vyatta-system-timing (>= ${binary:Version}), ${yang:Depends}
-Section: admin
 Priority: optional
 Description: YANG file for vyatta system timing configuration
  The YANG definition for the vyatta system timing configuration
