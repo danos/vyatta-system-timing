@@ -258,7 +258,7 @@ class State(vci.State):
         print(f"frequency status:{frequency_status}", flush=True)
         state = {
             "vyatta-system-v1:system": {
-                "vyatta-system-timing-v1:timing": {
+                "vyatta-system-timing-v1:timing-state": {
                     "timing-source": {
                         "one-pps-status": one_pps_status,
                         "frequency-status": frequency_status,

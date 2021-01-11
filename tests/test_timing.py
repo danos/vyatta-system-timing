@@ -150,13 +150,13 @@ def test_get_state_1pps():
     )
     state = stateInst.get()
     assert (
-        state["vyatta-system-v1:system"]["vyatta-system-timing-v1:timing"][
+        state["vyatta-system-v1:system"]["vyatta-system-timing-v1:timing-state"][
             "timing-source"
         ]["one-pps-status"]["source"]
         == "GPS-1PPS"
     )
     assert (
-        state["vyatta-system-v1:system"]["vyatta-system-timing-v1:timing"][
+        state["vyatta-system-v1:system"]["vyatta-system-timing-v1:timing-state"][
             "timing-source"
         ]["frequency-status"]["source"]
         == "SYNCE"
@@ -187,13 +187,13 @@ def test_get_state_1pps_current_None():
     )
     state = stateInst.get()
     assert (
-        state["vyatta-system-v1:system"]["vyatta-system-timing-v1:timing"][
+        state["vyatta-system-v1:system"]["vyatta-system-timing-v1:timing-state"][
             "timing-source"
         ]["frequency-status"]["source"]
         == "SYNCE"
     )
     assert (
-        state["vyatta-system-v1:system"]["vyatta-system-timing-v1:timing"][
+        state["vyatta-system-v1:system"]["vyatta-system-timing-v1:timing-state"][
             "timing-source"
         ]["one-pps-status"]["source"]
         == "None"
@@ -223,7 +223,7 @@ def test_get_state_frequency_source_None():
     )
     state = stateInst.get()
     assert (
-        state["vyatta-system-v1:system"]["vyatta-system-timing-v1:timing"][
+        state["vyatta-system-v1:system"]["vyatta-system-timing-v1:timing-state"][
             "timing-source"
         ]["frequency-status"]["source"]
         == "None"

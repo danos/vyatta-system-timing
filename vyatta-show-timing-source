@@ -63,10 +63,10 @@ def get_state_timing_source():
 
     try:
         d = c.tree_get_full_dict(
-            "system timing timing-source", configd.Client.RUNNING, "json"
+            "system timing-state timing-source", configd.Client.RUNNING, "json"
         )
     except:
-        print(msg="can't retrieve timing-source information\n", file=sys.stderr)
+        print("can't retrieve timing-source information\n", file=sys.stderr)
         sys.exit(1)
     # print(f"received from configd:{d}")
     if not bool(d):

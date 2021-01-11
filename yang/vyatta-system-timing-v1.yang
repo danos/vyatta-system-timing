@@ -79,93 +79,98 @@ module vyatta-system-timing-v1 {
 		description "The source of input frequency";
 		type enumeration {
 			enum "GPS" {
-				description "frequency from GPS";
-				configd:help "frequency from GPS";
+				description "Frequency from GPS";
+				configd:help "Frequency from GPS";
 			}
 			enum "SYNCE" {
-				description "frequency from SyncE";
-				configd:help "frequency from SyncE";
+				description "Frequency from SyncE";
+				configd:help "Frequency from SyncE";
 			}
 			enum "PTP" {
-				description "frequency from PTP";
-				configd:help "frequency from PTP";
+				description "Frequency from PTP";
+				configd:help "Frequency from PTP";
 			}
 			enum "SMA" {
-				description "frequency from SMA interface";
-				configd:help "frequency from SMA interface";
+				description "Frequency from SMA interface";
+				configd:help "Frequency from SMA interface";
 			}
 			enum "BITS" {
-				description "frequency from BITS interface";
-				configd:help "frequency from BITS interface";
+				description "Frequency from BITS interface";
+				configd:help "Frequency from BITS interface";
 			}
 		}
 	}
 	typedef type-weighted-priority {
-		description "weighted priority";
+		description "Weighted priority";
 		type uint16 {
 			range 1..100;
 		}
 	}
 	grouping source-status {
 		leaf source {
-			description "current input source";
+			description "Current input source";
 			type string;
 		}
 		leaf operating-status {
-			description "operating status of current input source";
+			description "Operating status of current input source";
 			type string;
 		}
 		leaf-list priority {
-			description "priority list of the sources";
+			description "Priority list of the sources";
 			type string;
 		}
 	}
 
 	grouping system-timing {
 		container timing {
-			description "system timing configuration";
-			configd:help "system timing configuration";
+			description "System timing configuration";
+			configd:help "System timing configuration";
 			container timing-source {
-				description "timing source configuration";
-				configd:help "timing source configuration";
+				description "Timing source configuration";
+				configd:help "Timing source configuration";
 				list one-pps {
 					description "1PPS source configuration";
 					configd:help "1PPS source configuration";
 					key src-name;
 					leaf weighted-priority {
-						description "weighted priority";
-						configd:help "weighted priority";
+						description "Weighted priority";
+						configd:help "Weighted priority";
 						type type-weighted-priority;
 					}
 					leaf src-name {
-						description "source of input 1PPS";
-						configd:help "source of input 1PPS";
+						description "Source of input 1PPS";
+						configd:help "Source of input 1PPS";
 						type one-pps-source;
 					}
 				}
 				list frequency {
-					description "frequency source configuration";
-					configd:help "frequency source configuration";
+					description "Frequency source configuration";
+					configd:help "Frequency source configuration";
 					key src-name;
 					leaf weighted-priority {
-						description "weighted priority";
-						configd:help "weighted priority";
+						description "Weighted priority";
+						configd:help "Weighted priority";
 						type type-weighted-priority;
 					}
 					leaf src-name {
-						description "source of input frequency";
-						configd:help "source of input frequency";
+						description "Source of input frequency";
+						configd:help "Source of input frequency";
 						type frequency-source;
 					}
 				}
+			}
+		}
+		container timing-state {
+			description "System timing state";
+			config false;
+			container timing-source {
+				description "System timing-source state";
 				container frequency-status {
-					description "status frequency source";
-					config false;
+					description "Frequency source status";
 					uses source-status;
 				}
 				container one-pps-status {
-					description "status 1PPS source";
-					config false;
+					description "1PPS source status";
 					uses source-status;
 				}
 			}

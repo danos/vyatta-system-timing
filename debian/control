@@ -26,3 +26,13 @@ Depends: vyatta-system-timing (>= ${binary:Version}), ${yang:Depends}
 Priority: optional
 Description: YANG file for vyatta system timing configuration
  The YANG definition for the vyatta system timing configuration
+
+Package: vyatta-op-show-system-timing-v1-yang
+Architecture: all
+Depends:
+    vyatta-system-timing (>= ${binary:Version}),
+    vyatta-system-timing-v1-yang (>= ${binary:Version}),
+    ${yang:Depends}
+Priority: optional
+Description: YANG file for showing vyatta system timing status
+ The YANG definition for showing the vyatta system timing status
