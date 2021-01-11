@@ -132,30 +132,30 @@ module vyatta-system-timing-v1 {
 					description "1PPS source configuration";
 					configd:help "1PPS source configuration";
 					key src-name;
-					leaf weighted-priority {
-						description "Weighted priority";
-						configd:help "Weighted priority";
-						type type-weighted-priority;
-					}
 					leaf src-name {
 						description "Source of input 1PPS";
 						configd:help "Source of input 1PPS";
 						type one-pps-source;
+					}
+					leaf weighted-priority {
+						description "Weighted priority";
+						configd:help "Weighted priority";
+						type type-weighted-priority;
 					}
 				}
 				list frequency {
 					description "Frequency source configuration";
 					configd:help "Frequency source configuration";
 					key src-name;
-					leaf weighted-priority {
-						description "Weighted priority";
-						configd:help "Weighted priority";
-						type type-weighted-priority;
-					}
 					leaf src-name {
 						description "Source of input frequency";
 						configd:help "Source of input frequency";
 						type frequency-source;
+					}
+					leaf weighted-priority {
+						description "Weighted priority";
+						configd:help "Weighted priority";
+						type type-weighted-priority;
 					}
 				}
 			}
