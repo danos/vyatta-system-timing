@@ -1,16 +1,16 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 
-Files: yang/*
-Copyright:
-    Copyright (c) 2021, AT&T Intellectual Property
-    All Rights Reserved.
-License: BSD-3-clause
-
 Files: *
 Copyright:
     Copyright (c) 2021, AT&T Intellectual Property
     All Rights Reserved.
 License: LGPL-2.1
+
+Files: yang/*
+Copyright:
+    Copyright (c) 2021, AT&T Intellectual Property
+    All Rights Reserved.
+License: BSD-3-clause
 
 License: BSD-3-clause
  Redistribution and use in source and binary forms, with or without
