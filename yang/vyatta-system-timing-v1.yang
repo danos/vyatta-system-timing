@@ -159,19 +159,19 @@ module vyatta-system-timing-v1 {
 					}
 				}
 			}
-		}
-		container timing-state {
-			description "System timing state";
-			config false;
-			container timing-source {
-				description "System timing-source state";
-				container frequency-status {
-					description "Frequency source status";
-					uses source-status;
-				}
-				container one-pps-status {
-					description "1PPS source status";
-					uses source-status;
+			container timing-status {
+				description "System timing status";
+				config false;
+				container timing-source {
+					description "System timing-source state";
+					container frequency-status {
+						description "Frequency source status";
+						uses source-status;
+					}
+					container one-pps-status {
+						description "1PPS source status";
+						uses source-status;
+					}
 				}
 			}
 		}

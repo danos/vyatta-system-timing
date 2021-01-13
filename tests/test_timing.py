@@ -1,6 +1,8 @@
-# Copyright (c) 2021, AT&T Intellectual Property.
-# All rights reserved.
+#!/usr/bin/env python3
 #
+# Copyright (c) 2021, AT&T Intellectual Property.  All Rights Reserved
+#
+# SPDX-License-Identifier: LGPL-2.1-only
 
 """
 Unit-tests for the vyatta_system_timing.py module.
@@ -150,15 +152,15 @@ def test_get_state_1pps():
     )
     state = stateInst.get()
     assert (
-        state["vyatta-system-v1:system"]["vyatta-system-timing-v1:timing-state"][
-            "timing-source"
-        ]["one-pps-status"]["source"]
+        state["vyatta-system-v1:system"]["vyatta-system-timing-v1:timing"][
+            "timing-status"
+        ]["timing-source"]["one-pps-status"]["source"]
         == "GPS-1PPS"
     )
     assert (
-        state["vyatta-system-v1:system"]["vyatta-system-timing-v1:timing-state"][
-            "timing-source"
-        ]["frequency-status"]["source"]
+        state["vyatta-system-v1:system"]["vyatta-system-timing-v1:timing"][
+            "timing-status"
+        ]["timing-source"]["frequency-status"]["source"]
         == "SYNCE"
     )
 
@@ -187,15 +189,15 @@ def test_get_state_1pps_current_None():
     )
     state = stateInst.get()
     assert (
-        state["vyatta-system-v1:system"]["vyatta-system-timing-v1:timing-state"][
-            "timing-source"
-        ]["frequency-status"]["source"]
+        state["vyatta-system-v1:system"]["vyatta-system-timing-v1:timing"][
+            "timing-status"
+        ]["timing-source"]["frequency-status"]["source"]
         == "SYNCE"
     )
     assert (
-        state["vyatta-system-v1:system"]["vyatta-system-timing-v1:timing-state"][
-            "timing-source"
-        ]["one-pps-status"]["source"]
+        state["vyatta-system-v1:system"]["vyatta-system-timing-v1:timing"][
+            "timing-status"
+        ]["timing-source"]["one-pps-status"]["source"]
         == "None"
     )
 
@@ -223,8 +225,8 @@ def test_get_state_frequency_source_None():
     )
     state = stateInst.get()
     assert (
-        state["vyatta-system-v1:system"]["vyatta-system-timing-v1:timing-state"][
-            "timing-source"
-        ]["frequency-status"]["source"]
+        state["vyatta-system-v1:system"]["vyatta-system-timing-v1:timing"][
+            "timing-status"
+        ]["timing-source"]["frequency-status"]["source"]
         == "None"
     )

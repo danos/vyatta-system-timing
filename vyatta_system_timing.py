@@ -1,4 +1,9 @@
 #!/usr/bin/python3
+#
+# Copyright (c) 2021, AT&T Intellectual Property.  All Rights Reserved
+#
+# SPDX-License-Identifier: LGPL-2.1-only
+
 import vci
 import timing_utility
 import json
@@ -258,10 +263,12 @@ class State(vci.State):
         print(f"frequency status:{frequency_status}", flush=True)
         state = {
             "vyatta-system-v1:system": {
-                "vyatta-system-timing-v1:timing-state": {
-                    "timing-source": {
-                        "one-pps-status": one_pps_status,
-                        "frequency-status": frequency_status,
+                "vyatta-system-timing-v1:timing": {
+                    "timing-status": {
+                        "timing-source": {
+                            "one-pps-status": one_pps_status,
+                            "frequency-status": frequency_status,
+                        }
                     }
                 }
             }

@@ -16,13 +16,14 @@ Depends:
     python3-vci,
     python3-ufispace-bsp-utils (>> 3.0.4-0vyatta3),
     ${python3:Depends},
-    ${shlibs:Depends}
+    ${shlibs:Depends},
+    ${misc:Depends}
 Description: vci component for vyatta system timing configuration
  vci component for vyatta system timing config set/get/delete and state get.
 
 Package: vyatta-system-timing-v1-yang
 Architecture: all
-Depends: vyatta-system-timing (>= ${binary:Version}), ${yang:Depends}
+Depends: vyatta-system-timing (>= ${binary:Version}), ${misc:Depends}, ${yang:Depends}
 Priority: optional
 Description: YANG file for vyatta system timing configuration
  The YANG definition for the vyatta system timing configuration
