@@ -125,7 +125,7 @@ module vyatta-system-timing-v1 {
 		container timing {
 			description "System timing configuration";
 			configd:help "System timing configuration";
-			presence "true";
+			presence "System timing configuration";
 			container timing-source {
 				description "Timing source configuration";
 				configd:help "Timing source configuration";
