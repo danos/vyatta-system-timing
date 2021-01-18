@@ -11,17 +11,17 @@ from threading import Lock
 
 timing_source_config = {
     "one-pps": [
-        {"src-name": "GPS-1PPS", "weighted-priority": 50},
-        {"src-name": "PTP-1PPS", "weighted-priority": 40},
-        {"src-name": "SMA-1PPS", "weighted-priority": 30},
-        {"src-name": "ToD-1PPS", "weighted-priority": 20},
+        {"source": "GPS-1PPS", "weighted-priority": 50},
+        {"source": "PTP-1PPS", "weighted-priority": 40},
+        {"source": "SMA-1PPS", "weighted-priority": 30},
+        {"source": "ToD-1PPS", "weighted-priority": 20},
     ],
     "frequency": [
-        {"src-name": "GPS", "weighted-priority": 50},
-        {"src-name": "SYNCE", "weighted-priority": 40},
-        {"src-name": "PTP", "weighted-priority": 30},
-        {"src-name": "SMA", "weighted-priority": 20},
-        {"src-name": "BITS", "weighted-priority": 10},
+        {"source": "GPS", "weighted-priority": 50},
+        {"source": "SYNCE", "weighted-priority": 40},
+        {"source": "PTP", "weighted-priority": 30},
+        {"source": "SMA", "weighted-priority": 20},
+        {"source": "BITS", "weighted-priority": 10},
     ],
 }
 default_timing_source_config = timing_source_config.copy()
@@ -68,10 +68,10 @@ class Config(vci.Config):
             cmd_type (string): command type, like one-pps, frequency
         """
         for item in cmd_dict[cmd_type]:
-            src_type = item["src-name"]
+            src_type = item["source"]
             weighted_priority = item["weighted-priority"]
             for saved_item in self.timing_source_config[cmd_type]:
-                if saved_item["src-name"] == src_type:
+                if saved_item["source"] == src_type:
                     saved_item["weighted-priority"] = weighted_priority
 
     def set(self, input):
@@ -113,7 +113,7 @@ class Config(vci.Config):
             )
             # let's config all 1PPS items to BSP, to avoid priority order issue.
             for i in range(len(self.timing_source_config["one-pps"])):
-                src_name = self.timing_source_config["one-pps"][i]["src-name"]
+                src_name = self.timing_source_config["one-pps"][i]["source"]
                 real_priority = 1 + i  # priority starts from 1
                 print(f"set_1pps_priority:{src_name}, {real_priority}")
                 self.timing_util.set_1pps_priority(src_name, real_priority)
@@ -131,7 +131,7 @@ class Config(vci.Config):
             real_priority = 0
             real_priority3 = 0  # for dpll3 specifically
             for i in range(len(self.timing_source_config["frequency"])):
-                src_name = self.timing_source_config["frequency"][i]["src-name"]
+                src_name = self.timing_source_config["frequency"][i]["source"]
                 if src_name in ["GPS", "SMA", "PTP"]:
                     real_priority += 1
                     print(
@@ -246,7 +246,7 @@ class State(vci.State):
         one_pps_status = {
             "source": src_name_from_dpll1(status1["current"]),
             "priority": [
-                f"weighted_priority:{item['weighted-priority']}, src-name:{item['src-name']}"
+                f"weighted_priority:{item['weighted-priority']}, source:{item['source']}"
                 for item in self.timing_source_config["one-pps"]
             ],
             "operating-status": status1["status"]["operating_status"],
@@ -255,7 +255,7 @@ class State(vci.State):
         frequency_status = {
             "source": src_name_from_dpll2(status2["current"]),
             "priority": [
-                f"weighted_priority:{item['weighted-priority']}, src-name:{item['src-name']}"
+                f"weighted_priority:{item['weighted-priority']}, source:{item['source']}"
                 for item in self.timing_source_config["frequency"]
             ],
             "operating-status": status2["status"]["operating_status"],

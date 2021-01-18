@@ -61,8 +61,10 @@ module vyatta-op-show-system-timing-v1 {
 	opd:augment /show:show/system:system {
 		opd:command timing-status {
 			opd:help "Show system timing status";
+
 			opd:command timing-source {
 				opd:help "Show system timing source status";
+
 				opd:command one-pps {
 					opd:help "Show system 1PPS timing source status";
 					opd:on-enter "vyatta-show-timing-source --one-pps";

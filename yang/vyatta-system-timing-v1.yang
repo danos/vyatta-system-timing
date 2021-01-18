@@ -56,6 +56,7 @@ module vyatta-system-timing-v1 {
 
 	typedef one-pps-source {
 		description "The source of input 1PPS";
+
 		type enumeration {
 			enum "GPS-1PPS" {
 				description  "1PPS from GPS";
@@ -77,6 +78,7 @@ module vyatta-system-timing-v1 {
 	}
 	typedef frequency-source {
 		description "The source of input frequency";
+
 		type enumeration {
 			enum "GPS" {
 				description "Frequency from GPS";
@@ -102,6 +104,7 @@ module vyatta-system-timing-v1 {
 	}
 	typedef type-weighted-priority {
 		description "Weighted priority";
+
 		type uint16 {
 			range 1..100;
 		}
@@ -126,14 +129,17 @@ module vyatta-system-timing-v1 {
 			description "System timing configuration";
 			configd:help "System timing configuration";
 			presence "System timing configuration";
+
 			container timing-source {
 				description "Timing source configuration";
 				configd:help "Timing source configuration";
+
 				list one-pps {
 					description "1PPS source configuration";
 					configd:help "1PPS source configuration";
-					key src-name;
-					leaf src-name {
+					key source;
+
+					leaf source {
 						description "Source of input 1PPS";
 						configd:help "Source of input 1PPS";
 						type one-pps-source;
@@ -147,8 +153,9 @@ module vyatta-system-timing-v1 {
 				list frequency {
 					description "Frequency source configuration";
 					configd:help "Frequency source configuration";
-					key src-name;
-					leaf src-name {
+					key source;
+
+					leaf source {
 						description "Source of input frequency";
 						configd:help "Source of input frequency";
 						type frequency-source;
@@ -163,8 +170,10 @@ module vyatta-system-timing-v1 {
 			container timing-status {
 				description "System timing status";
 				config false;
+
 				container timing-source {
 					description "System timing-source state";
+
 					container frequency-status {
 						description "Frequency source status";
 						uses source-status;

@@ -19,17 +19,17 @@ import vyatta_system_timing
 
 g_timing_source_config = {
     "one-pps": [
-        {"src-name": "GPS-1PPS", "weighted-priority": 50},
-        {"src-name": "PTP-1PPS", "weighted-priority": 40},
-        {"src-name": "SMA-1PPS", "weighted-priority": 30},
-        {"src-name": "ToD-1PPS", "weighted-priority": 20},
+        {"source": "GPS-1PPS", "weighted-priority": 50},
+        {"source": "PTP-1PPS", "weighted-priority": 40},
+        {"source": "SMA-1PPS", "weighted-priority": 30},
+        {"source": "ToD-1PPS", "weighted-priority": 20},
     ],
     "frequency": [
-        {"src-name": "GPS", "weighted-priority": 50},
-        {"src-name": "SYNCE", "weighted-priority": 40},
-        {"src-name": "PTP", "weighted-priority": 30},
-        {"src-name": "SMA", "weighted-priority": 20},
-        {"src-name": "BITS", "weighted-priority": 10},
+        {"source": "GPS", "weighted-priority": 50},
+        {"source": "SYNCE", "weighted-priority": 40},
+        {"source": "PTP", "weighted-priority": 30},
+        {"source": "SMA", "weighted-priority": 20},
+        {"source": "BITS", "weighted-priority": 10},
     ],
 }
 
@@ -51,7 +51,7 @@ def test_set_config_1pps_GPS():
         "vyatta-system-v1:system": {
             "vyatta-system-timing-v1:timing": {
                 "timing-source": {
-                    "one-pps": [{"src-name": "GPS-1PPS", "weighted-priority": 25}]
+                    "one-pps": [{"source": "GPS-1PPS", "weighted-priority": 25}]
                 }
             }
         }
@@ -64,7 +64,7 @@ def test_set_config_1pps_GPS():
         "vyatta-system-timing-v1:timing"
     ]["timing-source"]
     one_pps_config = timing_source_config["one-pps"]
-    assert one_pps_config[2]["src-name"] == "GPS-1PPS"
+    assert one_pps_config[2]["source"] == "GPS-1PPS"
     assert one_pps_config[2]["weighted-priority"] == 25
 
 
@@ -77,7 +77,7 @@ def test_set_config_frequency_GPS():
         "vyatta-system-v1:system": {
             "vyatta-system-timing-v1:timing": {
                 "timing-source": {
-                    "frequency": [{"src-name": "GPS", "weighted-priority": 25}]
+                    "frequency": [{"source": "GPS", "weighted-priority": 25}]
                 }
             }
         }
@@ -110,7 +110,7 @@ def test_set_config_frequency_GPS():
         "vyatta-system-timing-v1:timing"
     ]["timing-source"]
     one_pps_config = timing_source_config["frequency"]
-    assert one_pps_config[2]["src-name"] == "GPS"
+    assert one_pps_config[2]["source"] == "GPS"
     assert one_pps_config[2]["weighted-priority"] == 25
 
 
@@ -123,7 +123,7 @@ def test_set_config_wrong_parameters():
         "vyatta-system-v1:system": {
             "vyatta-system-timing-v1:timing": {
                 "wrong-parameters": {
-                    "one-pps": [{"src-name": "GPS-1PPS", "weighted-priority": 25}]
+                    "one-pps": [{"source": "GPS-1PPS", "weighted-priority": 25}]
                 }
             }
         }
@@ -167,8 +167,8 @@ def test_get_state_1pps():
 
 def test_get_state_1pps_current_None():
     """
-    one-pps status:{'source': 'None', 'priority': ['weighted_priority:50, src-name:GPS-1PPS', 'weighted_priority:40, src-name:PT
-    P-1PPS', 'weighted_priority:30, src-name:SMA-1PPS', 'weighted_priority:20, src-name:ToD-1PPS'], 'operating-status': 'Free Run'}
+    one-pps status:{'source': 'None', 'priority': ['weighted_priority:50, source:GPS-1PPS', 'weighted_priority:40, source:PT
+    P-1PPS', 'weighted_priority:30, source:SMA-1PPS', 'weighted_priority:20, source:ToD-1PPS'], 'operating-status': 'Free Run'}
     """
     global g_timing_source_config
     stateInst = vyatta_system_timing.State()

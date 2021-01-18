@@ -13,25 +13,25 @@ def show_one_pps_status(state):
     """
     state:
     {
-        "frequency": [{"src-name": "GPS", "weighted-priority": 25}],
+        "frequency": [{"source": "GPS", "weighted-priority": 25}],
         "frequency-status": {
             "operating-status": "Locked",
             "priority": [
-                "src-name:BITS, weighted_priority:10",
-                "src-name:GPS, weighted_priority:25",
-                "src-name:PTP, weighted_priority:30",
-                "src-name:SMA, weighted_priority:20",
-                "src-name:SYNCE, weighted_priority:40",
+                "source:BITS, weighted_priority:10",
+                "source:GPS, weighted_priority:25",
+                "source:PTP, weighted_priority:30",
+                "source:SMA, weighted_priority:20",
+                "source:SYNCE, weighted_priority:40",
             ],
             "source": "SYNCE",
         },
         "one-pps-status": {
             "operating-status": "Locked",
             "priority": [
-                "src-name:GPS-1PPS, weighted_priority:50",
-                "src-name:PTP-1PPS, weighted_priority:40",
-                "src-name:SMA-1PPS, weighted_priority:30",
-                "src-name:ToD-1PPS, weighted_priority:20",
+                "source:GPS-1PPS, weighted_priority:50",
+                "source:PTP-1PPS, weighted_priority:40",
+                "source:SMA-1PPS, weighted_priority:30",
+                "source:ToD-1PPS, weighted_priority:20",
             ],
             "source": "PTP-1PPS",
         },
