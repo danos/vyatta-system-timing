@@ -32,7 +32,6 @@ Package: vyatta-op-show-system-timing-v1-yang
 Architecture: all
 Depends:
     vyatta-system-timing (>= ${binary:Version}),
-    vyatta-system-timing-v1-yang (>= ${binary:Version}),
     ${misc:Depends},
     ${yang:Depends}
 Priority: optional
