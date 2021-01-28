@@ -1,2 +1,2 @@
-vyatta_system_timing.py /opt/vyatta/sbin/
+vyatta_system_timing /opt/vyatta/sbin/
 vyatta-show-timing-source /opt/vyatta/sbin/

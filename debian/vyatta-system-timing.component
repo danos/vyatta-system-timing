@@ -1,7 +1,7 @@
 [Vyatta Component]
 Name=net.vyatta.vci.system.timing
 Description=vci component for system timing
-ExecName=/opt/vyatta/sbin/vyatta_system_timing.py
+ExecName=/opt/vyatta/sbin/vyatta_system_timing
 ConfigFile=/dev/null
 
 [Model net.vyatta.vci.system.timing.v1]

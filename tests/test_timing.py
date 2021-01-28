@@ -5,7 +5,7 @@
 # SPDX-License-Identifier: LGPL-2.1-only
 
 """
-Unit-tests for the vyatta_system_timing.py module.
+Unit-tests for the vyatta_system_timing module.
 """
 from os.path import dirname, realpath, sep, pardir
 import sys, os
