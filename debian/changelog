@@ -1,6 +1,10 @@
-vyatta-system-timing (1.0.0) unstable; urgency=low
+vyatta-system-timing (1.0) unstable; urgency=low
 
+  * vyatta-system-timing YANG configuration and operational models
+  * vyatta-system-timing debian build integration
+  * Support 1pps and frequency timing sources configurations
   * Initial release.
 
- -- Yuanzhang Hu <yh754x@att.com>  Mon, 04 Jan 2021 14:54:00 -0500
+
+ -- Yuanzhang Hu <yuanzhang.hu@intl.att.com>  Mon, 04 Jan 2021 14:54:00 -0500
 
