@@ -13,45 +13,57 @@ def show_one_pps_status(state):
     """
     state:
     {
-        "frequency": [{"source": "GPS", "weighted-priority": 25}],
+        "frequency": [{"source": "gps", "weighted-priority": 25}],
         "frequency-status": {
             "operating-status": "Locked",
             "priority": [
-                "source:BITS, weighted_priority:10",
-                "source:GPS, weighted_priority:25",
-                "source:PTP, weighted_priority:30",
-                "source:SMA, weighted_priority:20",
-                "source:SYNCE, weighted_priority:40",
+                {"source":"bits", "weighted-priority":10},
+                {"source":"gps", "weighted-priority":25},
+                {"source":"ptp", "weighted-priority":30},
+                {"source":"sma", "weighted-priority":20},
+                {"source":"synce", "weighted-priority":40},
             ],
-            "source": "SYNCE",
+            "source": "synce",
         },
         "one-pps-status": {
             "operating-status": "Locked",
             "priority": [
-                "source:GPS-1PPS, weighted_priority:50",
-                "source:PTP-1PPS, weighted_priority:40",
-                "source:SMA-1PPS, weighted_priority:30",
-                "source:ToD-1PPS, weighted_priority:20",
+                {"source":"gps-1pps", "weighted-priority":50},
+                {"source":"ptp-1pps", "weighted-priority":40},
+                {"source":"sma-1pps", "weighted-priority":30},
+                {"source":"tod-1pps", "weighted-priority":20},
             ],
-            "source": "PTP-1PPS",
+            "source": "ptp-1pps",
         },
     }
     """
-    dumpstr = "{}"
     try:
-        dumpstr = json.dumps(state["one-pps-status"], indent=4)
+        operating_status = state["one-pps-status"]["operating-status"]
+        operating_status = operating_status.replace(" ", "-")
+        state["one-pps-status"]["priority"] = sorted(state["one-pps-status"]["priority"],
+                    key=lambda k: k['weighted-priority'], reverse=True)
+        print(f'    Operating-status: {operating_status}')
+        print(f'    Priorities:')
+        for item in state["one-pps-status"]["priority"]:
+            print(f'        {item["weighted-priority"]}: {item["source"].upper()}')
+        print(f'    Source: {state["one-pps-status"]["source"].upper()}')
     except:
         pass
-    print(dumpstr)
 
 
 def show_frequency_status(state):
-    dumpstr = "{}"
     try:
-        dumpstr = json.dumps(state["frequency-status"], indent=4)
+        operating_status = state["frequency-status"]["operating-status"]
+        operating_status = operating_status.replace(" ", "-")
+        state["frequency-status"]["priority"] = sorted(state["frequency-status"]["priority"],
+                    key=lambda k: k['weighted-priority'], reverse=True)
+        print(f'    Operating-status: {operating_status}')
+        print(f'    Priorities:')
+        for item in state["frequency-status"]["priority"]:
+            print(f'        {item["weighted-priority"]}: {item["source"].upper()}')
+        print(f'    Source: {state["frequency-status"]["source"].upper()}')
     except:
         pass
-    print(dumpstr)
 
 
 def get_state_timing_source():

@@ -37,3 +37,10 @@ Depends:
 Priority: optional
 Description: YANG file for showing vyatta system timing status
  The YANG definition for showing the vyatta system timing status
+
+Package: vyatta-system-timing-deviations-siad-v1-yang
+Architecture: all
+Depends: ${misc:Depends}, ${yang:Depends}
+Priority: optional
+Description: Vyatta system timing configuration deviation YANG file for SIAD platform
+ The system timing YANG definitions for the SIAD platform

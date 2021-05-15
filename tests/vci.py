@@ -15,3 +15,8 @@ class Config(object):
 class State(object):
     def __init(self, *args, **argdict):
         pass
+
+
+class Exception(Exception):
+    def __init__(self, module, msg, path):
+        super().__init__(msg)

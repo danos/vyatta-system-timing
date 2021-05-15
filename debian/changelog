@@ -1,10 +1,12 @@
 vyatta-system-timing (1.0) unstable; urgency=low
 
+  * Adjusted one-pps-status and frequency-status formats
+  * Added tod-output configuration
   * vyatta-system-timing YANG configuration and operational models
   * vyatta-system-timing debian build integration
+  * vyatta-system-timing deviations for SIAD platform
   * Support 1pps and frequency timing sources configurations
   * Initial release.
 
-
- -- Yuanzhang Hu <yuanzhang.hu@intl.att.com>  Mon, 04 Jan 2021 14:54:00 -0500
+ -- Yuanzhang Hu <yuanzhang.hu@intl.att.com>  Sat, 15 May 2021 18:54:00 -0400
 

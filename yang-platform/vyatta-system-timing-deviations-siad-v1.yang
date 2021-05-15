@@ -1,20 +1,13 @@
-module vyatta-op-show-system-timing-v1 {
-	namespace "urn:vyatta.com:mgmt:vyatta-op-show-system-timing:1";
-	prefix vyatta-op-show-system-timing-v1;
+module vyatta-system-timing-deviations-siad-v1 {
+	namespace "urn:vyatta.com:mgmt:vyatta-system-timing-deviations-siad-v1:1";
+	prefix vyatta-system-timing-deviations-siad-v1;
 
-	import vyatta-opd-extensions-v1 {
-		prefix opd;
-	}
-	import vyatta-op-show-v1 {
-		prefix show;
+	import vyatta-system-v1 {
+		prefix system;
 	}
 	import vyatta-system-timing-v1 {
 		prefix timing;
 	}
-	import vyatta-op-show-system-v1 {
-		prefix system;
-	}
-
 	organization "AT&T Inc.";
 	contact
 		"AT&T
@@ -24,7 +17,7 @@ module vyatta-op-show-system-timing-v1 {
 
 	description
 		"Copyright (c) 2021, AT&T Intellectual Property.
-		 All rights reserved.
+		All rights reserved.
 
 		Redistribution and use in source and binary forms, with or without
 		modification, are permitted provided that the following conditions
@@ -55,29 +48,55 @@ module vyatta-op-show-system-timing-v1 {
 
 		SPDX-License-Identifier: BSD-3-Clause
 
-		Defines the top level 'timing' level under 'show system' for operational CLI";
+		System Timing configuration";
 
-	revision 2021-05-19 {
+	revision 2021-05-31 {
 		description "Initial revision of version 1.";
 	}
 
-	opd:augment /show:show/system:system {
-		opd:command timing-status {
-			opd:help "Show system timing status";
-			if-feature timing:timing;
-
-			opd:command timing-source {
-				opd:help "Show system timing source status";
-
-				opd:command one-pps {
-					opd:help "Show system 1PPS timing source status";
-					opd:on-enter "vyatta-show-timing-source --one-pps";
-				}
-				opd:command frequency {
-					opd:help "Show system frequency timing source status";
-					opd:on-enter "vyatta-show-timing-source --frequency";
-				}
-			}
+	deviation /system:system/timing:timing/timing:timing-source/timing:one-pps/timing:gps-1pps/timing:weighted-priority {
+		deviate add {
+			default 50;
+		}
+	}
+	deviation /system:system/timing:timing/timing:timing-source/timing:one-pps/timing:ptp-1pps/timing:weighted-priority {
+		deviate add {
+			default 40;
+		}
+	}
+	deviation /system:system/timing:timing/timing:timing-source/timing:one-pps/timing:sma-1pps/timing:weighted-priority {
+		deviate add {
+			default 30;
+		}
+	}
+	deviation /system:system/timing:timing/timing:timing-source/timing:one-pps/timing:tod-1pps/timing:weighted-priority {
+		deviate add {
+			default 20;
+		}
+	}
+	deviation /system:system/timing:timing/timing:timing-source/timing:frequency/timing:gps/timing:weighted-priority {
+		deviate add {
+			default 50;
+		}
+	}
+	deviation /system:system/timing:timing/timing:timing-source/timing:frequency/timing:synce/timing:weighted-priority {
+		deviate add {
+			default 40;
+		}
+	}
+	deviation /system:system/timing:timing/timing:timing-source/timing:frequency/timing:ptp/timing:weighted-priority {
+		deviate add {
+			default 30;
+		}
+	}
+	deviation /system:system/timing:timing/timing:timing-source/timing:frequency/timing:sma/timing:weighted-priority {
+		deviate add {
+			default 20;
+		}
+	}
+	deviation /system:system/timing:timing/timing:timing-source/timing:frequency/timing:bits/timing:weighted-priority {
+		deviate add {
+			default 10;
 		}
 	}
 }

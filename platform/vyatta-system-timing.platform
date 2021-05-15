@@ -1,0 +1,3 @@
+[Platform ufi.s9500-30xs]
+Yang=vyatta-system-timing-deviations-siad-v1.yang
+Features=vyatta-system-timing-v1:timing

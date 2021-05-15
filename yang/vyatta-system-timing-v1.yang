@@ -50,65 +50,14 @@ module vyatta-system-timing-v1 {
 
 		System Timing configuration";
 
-	revision 2021-01-04 {
+	revision 2021-05-19 {
 		description "Initial revision of version 1.";
 	}
 
-	typedef one-pps-source {
-		description "The source of input 1PPS";
-
-		type enumeration {
-			enum "GPS-1PPS" {
-				description  "1PPS from GPS";
-				configd:help "1PPS from GPS";
-			}
-			enum "PTP-1PPS" {
-				description "1PPS from PTP";
-				configd:help "1PPS from PTP";
-			}
-			enum "SMA-1PPS" {
-				description "1PPS from SMA interface";
-				configd:help "1PPS from SMA interface";
-			}
-			enum "ToD-1PPS" {
-				description "1PPS from TOD RJ45 interface";
-				configd:help "1PPS from TOD RJ45 interface";
-			}
-		}
+	feature timing {
+		description "Vyatta system timing configuration support";
 	}
-	typedef frequency-source {
-		description "The source of input frequency";
 
-		type enumeration {
-			enum "GPS" {
-				description "Frequency from GPS";
-				configd:help "Frequency from GPS";
-			}
-			enum "SYNCE" {
-				description "Frequency from SyncE";
-				configd:help "Frequency from SyncE";
-			}
-			enum "PTP" {
-				description "Frequency from PTP";
-				configd:help "Frequency from PTP";
-			}
-			enum "SMA" {
-				description "Frequency from SMA interface";
-				configd:help "Frequency from SMA interface";
-			}
-			enum "BITS" {
-				description "Frequency from BITS interface";
-				configd:help "Frequency from BITS interface";
-			}
-		}
-	}
-	typedef type-weighted-priority {
-		description "Weighted priority";
-
-		type uint16 {
-			range 1..100;
-		}
-	}
 	grouping source-status {
 		leaf source {
 			description "Current input source";
@@ -118,9 +67,19 @@ module vyatta-system-timing-v1 {
 			description "Operating status of current input source";
 			type string;
 		}
-		leaf-list priority {
+		list priority {
 			description "Priority list of the sources";
-			type string;
+			key weighted-priority;
+			leaf weighted-priority {
+				description "Weighted priority, higher value indicates higher priority";
+				type uint16 {
+					range 1..100;
+				}
+			}
+			leaf source {
+				description "Input source";
+				type string;
+			}
 		}
 	}
 
@@ -128,44 +87,153 @@ module vyatta-system-timing-v1 {
 		container timing {
 			description "System timing configuration";
 			configd:help "System timing configuration";
-			presence "System timing configuration";
+			if-feature timing;
 
 			container timing-source {
 				description "Timing source configuration";
 				configd:help "Timing source configuration";
 
-				list one-pps {
+				container one-pps {
 					description "1PPS source configuration";
 					configd:help "1PPS source configuration";
-					key source;
-
-					leaf source {
-						description "Source of input 1PPS";
-						configd:help "Source of input 1PPS";
-						type one-pps-source;
+					container gps-1pps {
+						description "GPS-1PPS configuration";
+						configd:help "GPS-1PPS configuration";
+						leaf weighted-priority {
+							description "Weighted priority";
+							configd:help "Weighted priority";
+							must "count(../../*/weighted-priority[. = current()]) = 1" {
+								error-message "Duplicate priority";
+							}
+							type uint16 {
+								range 1..100;
+							}
+						}
 					}
-					leaf weighted-priority {
-						description "Weighted priority";
-						configd:help "Weighted priority";
-						type type-weighted-priority;
+					container ptp-1pps {
+						description "PTP-1PPS configuration";
+						configd:help "PTP-1PPS configuration";
+						leaf weighted-priority {
+							description "Weighted priority";
+							configd:help "Weighted priority";
+							must "count(../../*/weighted-priority[. = current()]) = 1" {
+								error-message "Duplicate priority";
+							}
+							type uint16 {
+								range 1..100;
+							}
+						}
+					}
+					container sma-1pps {
+						description "SMA-1PPS configuration";
+						configd:help "SMA-1PPS configuration";
+						leaf weighted-priority {
+							description "Weighted priority";
+							configd:help "Weighted priority";
+							must "count(../../*/weighted-priority[. = current()]) = 1" {
+								error-message "Duplicate priority";
+							}
+							type uint16 {
+								range 1..100;
+							}
+						}
+					}
+					container tod-1pps {
+						description "ToD-1PPS configuration";
+						configd:help "ToD-1PPS configuration";
+						leaf weighted-priority {
+							description "Weighted priority";
+							configd:help "Weighted priority";
+							must "count(../../*/weighted-priority[. = current()]) = 1" {
+								error-message "Duplicate priority";
+							}
+							type uint16 {
+								range 1..100;
+							}
+						}
 					}
 				}
-				list frequency {
+				container frequency {
 					description "Frequency source configuration";
 					configd:help "Frequency source configuration";
-					key source;
 
-					leaf source {
-						description "Source of input frequency";
-						configd:help "Source of input frequency";
-						type frequency-source;
+					container gps {
+						description "GPS frequency configuration";
+						configd:help "GPS frequency configuration";
+						leaf weighted-priority {
+							description "Weighted priority";
+							configd:help "Weighted priority";
+							must "count(../../*/weighted-priority[. = current()]) = 1" {
+								error-message "Duplicate priority";
+							}
+							type uint16 {
+								range 1..100;
+							}
+						}
 					}
-					leaf weighted-priority {
-						description "Weighted priority";
-						configd:help "Weighted priority";
-						type type-weighted-priority;
+					container synce {
+						description "SyncE frequency configuration";
+						configd:help "SyncE frequency configuration";
+						leaf weighted-priority {
+							description "Weighted priority";
+							configd:help "Weighted priority";
+							must "count(../../*/weighted-priority[. = current()]) = 1" {
+								error-message "Duplicate priority";
+							}
+							type uint16 {
+								range 1..100;
+							}
+						}
+					}
+					container ptp {
+						description "PTP frequency configuration";
+						configd:help "PTP frequency configuration";
+						leaf weighted-priority {
+							description "Weighted priority";
+							configd:help "Weighted priority";
+							must "count(../../*/weighted-priority[. = current()]) = 1" {
+								error-message "Duplicate priority";
+							}
+							type uint16 {
+								range 1..100;
+							}
+						}
+					}
+					container sma {
+						description "SMA frequency configuration";
+						configd:help "SMA frequency configuration";
+						leaf weighted-priority {
+							description "Weighted priority";
+							configd:help "Weighted priority";
+							must "count(../../*/weighted-priority[. = current()]) = 1" {
+								error-message "Duplicate priority";
+							}
+							type uint16 {
+								range 1..100;
+							}
+						}
+					}
+					container bits {
+						description "BITS frequency configuration";
+						configd:help "BITS frequency configuration";
+						leaf weighted-priority {
+							description "Weighted priority";
+							configd:help "Weighted priority";
+							must "count(../../*/weighted-priority[. = current()]) = 1" {
+								error-message "Duplicate priority";
+							}
+							type uint16 {
+								range 1..100;
+							}
+						}
 					}
 				}
+			}
+			leaf tod-output {
+				description "Output of ToD (Time of Day) RJ45 interface";
+				configd:help "Output of ToD (Time of Day) RJ45 interface";
+				type boolean;
+				default "false";
 			}
 			container timing-status {
 				description "System timing status";
