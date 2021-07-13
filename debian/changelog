@@ -1,3 +1,10 @@
+vyatta-system-timing (1.2) unstable; urgency=medium
+
+  [ Yuanzhang Hu ]
+  * system-timing: remove chatty logs
+
+ -- Charles (Chas) Williams <ciwillia@vyatta.att-mail.com>  Tue, 13 Jul 2021 11:52:43 -0400
+
 vyatta-system-timing (1.1) unstable; urgency=medium
 
   [ Yuanzhang Hu ]
