@@ -215,7 +215,6 @@ class Config(vci.Config):
             dict format same to input of set() function
         """
         # return the configuration
-        print("get config", flush=True)
         return {
             V1_SYSTEM: {
                 V1_TIMING: {
@@ -265,10 +264,8 @@ class State(vci.State):
             dict: 1PPS and frequence timing source state
         """
         # do something to retrieve the state of the feature
-        print("get State", flush=True)
         status1 = self.timing_util.get_dpll_status(1)
         status2 = self.timing_util.get_dpll_status(2)
-        print(f"status1:{status1} status2:{status2}", flush=True)
         one_pps_status = {
             "source": src_name_from_dpll1(status1["current"]),
             "priority": [
@@ -278,7 +275,6 @@ class State(vci.State):
             ],
             "operating-status": status1["status"]["operating_status"],
         }
-        print(f"one-pps status:{one_pps_status}", flush=True)
         frequency_status = {
             "source": src_name_from_dpll2(status2["current"]),
             "priority": [
@@ -288,7 +284,6 @@ class State(vci.State):
             ],
             "operating-status": status2["status"]["operating_status"],
         }
-        print(f"frequency status:{frequency_status}", flush=True)
         state = {
             V1_SYSTEM: {
                 V1_TIMING: {
