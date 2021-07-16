@@ -11,6 +11,10 @@ from CPLD_utility import CPLDUtility
 import json
 from threading import Lock
 
+DPLL1 = 1  # Phase
+DPLL2 = 2  # Frequency
+DPLL3 = 3  # Timestamp
+AUTO = 0
 V1_SYSTEM = "vyatta-system-v1:system"
 V1_TIMING = "vyatta-system-timing-v1:timing"
 SUPPORTED_PLATFORMS = ["ufi.s9500-30xs"]   # add new platform here
@@ -71,6 +75,13 @@ class Config(vci.Config):
         self.timing_source_config = timing_source_config
         self.tod_output_enabled = False
         self.mutex = Lock()
+        # dpll initialization
+        self.timing_util.set_dpll_fast_lock(DPLL1)
+        self.timing_util.set_dpll_op_mode(DPLL1, AUTO)
+        self.timing_util.set_dpll_fast_lock(DPLL2)
+        self.timing_util.set_dpll_op_mode(DPLL2, AUTO)
+        self.timing_util.set_dpll_fast_lock(DPLL3)
+        self.timing_util.set_dpll_op_mode(DPLL3, AUTO)
         # config_file_path = '/etc/vyatta/vyatta-system-timing.json'
 
     def enable_tod_output(self, enable):
