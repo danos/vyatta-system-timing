@@ -57,17 +57,18 @@ module vyatta-op-show-system-timing-v1 {
 
 		Defines the top level 'timing' level under 'show system' for operational CLI";
 
-	revision 2021-05-19 {
+	revision 2021-08-03 {
 		description "Initial revision of version 1.";
 	}
 
 	opd:augment /show:show/system:system {
-		opd:command timing-status {
+		opd:command timing {
 			opd:help "Show system timing status";
 			if-feature timing:timing;
 
 			opd:command timing-source {
 				opd:help "Show system timing source status";
+				opd:on-enter "vyatta-show-timing-source";
 
 				opd:command one-pps {
 					opd:help "Show system 1PPS timing source status";

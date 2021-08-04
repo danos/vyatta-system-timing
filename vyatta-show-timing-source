@@ -42,11 +42,11 @@ def show_one_pps_status(state):
         operating_status = operating_status.replace(" ", "-")
         state["one-pps-status"]["priority"] = sorted(state["one-pps-status"]["priority"],
                     key=lambda k: k['weighted-priority'], reverse=True)
-        print(f'    Operating-status: {operating_status}')
-        print(f'    Priorities:')
+        print(f'    1PPS source: {state["one-pps-status"]["source"].upper()}')
+        print(f'    1PPS operating-status: {operating_status}')
+        print(f'    1PPS priorities:')
         for item in state["one-pps-status"]["priority"]:
             print(f'        {item["weighted-priority"]}: {item["source"].upper()}')
-        print(f'    Source: {state["one-pps-status"]["source"].upper()}')
     except:
         pass
 
@@ -57,11 +57,11 @@ def show_frequency_status(state):
         operating_status = operating_status.replace(" ", "-")
         state["frequency-status"]["priority"] = sorted(state["frequency-status"]["priority"],
                     key=lambda k: k['weighted-priority'], reverse=True)
-        print(f'    Operating-status: {operating_status}')
-        print(f'    Priorities:')
+        print(f'    Frequency source: {state["frequency-status"]["source"].upper()}')
+        print(f'    Frequency operating-status: {operating_status}')
+        print(f'    Frequency priorities:')
         for item in state["frequency-status"]["priority"]:
             print(f'        {item["weighted-priority"]}: {item["source"].upper()}')
-        print(f'    Source: {state["frequency-status"]["source"].upper()}')
     except:
         pass
 
@@ -106,3 +106,8 @@ if __name__ == "__main__":
     elif args.frequency:
         state = get_state_timing_source()
         show_frequency_status(state)
+
+    else:
+        state = get_state_timing_source()
+        show_frequency_status(state)
+        show_one_pps_status(state)
