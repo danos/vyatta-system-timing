@@ -76,11 +76,8 @@ class Config(vci.Config):
         self.tod_output_enabled = False
         self.mutex = Lock()
         # dpll initialization
-        self.timing_util.set_dpll_fast_lock(DPLL1)
         self.timing_util.set_dpll_op_mode(DPLL1, AUTO)
-        self.timing_util.set_dpll_fast_lock(DPLL2)
         self.timing_util.set_dpll_op_mode(DPLL2, AUTO)
-        self.timing_util.set_dpll_fast_lock(DPLL3)
         self.timing_util.set_dpll_op_mode(DPLL3, AUTO)
         # config_file_path = '/etc/vyatta/vyatta-system-timing.json'
 
@@ -149,6 +146,8 @@ class Config(vci.Config):
                 real_priority = 1 + i  # priority starts from 1
                 print(f"set_1pps_priority:{src_name}, {real_priority}", flush=True)
                 self.timing_util.set_1pps_priority(src_name, real_priority)
+            self.timing_util.set_dpll_fast_lock(DPLL1)
+            self.timing_util.set_dpll_op_mode(DPLL1, AUTO)
         if "frequency" in cmd_dict:
             self.set_config(cmd_dict, "frequency")  # save config into self.timing_source_config
             # sort frequency list
@@ -216,6 +215,10 @@ class Config(vci.Config):
                         self.timing_util.set_frequency_priority_dpll3(
                             target_name + "-DPLL3", real_priority3
                         )
+            self.timing_util.set_dpll_fast_lock(DPLL2)
+            self.timing_util.set_dpll_op_mode(DPLL2, AUTO)
+            self.timing_util.set_dpll_fast_lock(DPLL3)
+            self.timing_util.set_dpll_op_mode(DPLL3, AUTO)
         self.mutex.release()
         return
 
