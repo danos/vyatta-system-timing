@@ -1,3 +1,9 @@
+vyatta-system-timing (1.5) unstable; urgency=medium
+
+  * Move fast lock to after priority configuration (Bugfix: VRVDR-56238)
+
+ -- Charles (Chas) Williams <ciwillia@vyatta.att-mail.com>  Fri, 08 Oct 2021 10:07:42 -0400
+
 vyatta-system-timing (1.4) unstable; urgency=medium
 
   [ Yuanzhang Hu ]
